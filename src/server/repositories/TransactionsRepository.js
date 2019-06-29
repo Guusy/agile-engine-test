@@ -6,6 +6,7 @@ class TransactionsRepository {
     }
 
     reset() {
+        this.balance = 0;
         this.transactions = [];
     }
 
@@ -14,6 +15,7 @@ class TransactionsRepository {
     }
 
     add(transaction) {
+        this.subtractBalance(transaction.amount)
         const newTransaction = {
             ...transaction,
             id: this.getLastId(),
@@ -30,6 +32,9 @@ class TransactionsRepository {
     }
     getBalance() {
         return this.balance
+    }
+    subtractBalance(amount) {
+        this.balance = this.balance - amount
     }
 }
 

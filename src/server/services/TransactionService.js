@@ -25,6 +25,7 @@ class TransactionService {
     static getAll() {
         return TransactionsRepository.getAll();
     }
+
     static getBalance() {
         return TransactionsRepository.getBalance();
     }

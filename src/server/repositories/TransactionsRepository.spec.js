@@ -20,6 +20,7 @@ describe('TransactionsRepository', () => {
         let transaction = {};
         beforeAll(() => {
             TransactionsRepository.reset();
+            TransactionsRepository.balance = 310;
             TransactionsRepository.add(transactionValue);
             transactions = TransactionsRepository.getAll();
             transaction = transactions[0]
@@ -39,6 +40,9 @@ describe('TransactionsRepository', () => {
         it('add this with his type', () => {
             expect(transaction.type).toEqual(transactionValue.type);
         });
+        it('subtract balance', () => {
+            expect(TransactionsRepository.getBalance()).toEqual(300)
+        })
     })
 
     describe('when ask for specific id', () => {
