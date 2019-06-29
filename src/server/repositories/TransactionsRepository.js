@@ -15,7 +15,8 @@ class TransactionsRepository {
     add(transaction) {
         const newTransaction = {
             ...transaction,
-            id: this.getLastId()
+            id: this.getLastId(),
+            effectiveDate: Date.now()
         };
         this.transactions.push(newTransaction);
     }
