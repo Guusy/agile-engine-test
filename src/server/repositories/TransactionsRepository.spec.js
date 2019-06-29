@@ -41,4 +41,32 @@ describe('TransactionsRepository', () => {
         });
     })
 
+    describe('when ask for specific id', () => {
+        describe('and this id exists', () => {
+            const transactionValue = TransactionBody.fromJson({
+                amount: 10,
+                type: CREDIT
+            })
+            let transaction = {}
+            beforeAll(() => {
+                TransactionsRepository.reset();
+                TransactionsRepository.add(transactionValue);
+                transaction = TransactionsRepository.getById(0)
+            });
+            it('return this transaction', () => {
+                expect(transaction.id).toBe(0)
+            });
+        });
+        describe('and this id doesnt exists', () => {
+            let transaction;
+            beforeAll(() => {
+                TransactionsRepository.reset();
+                transaction = TransactionsRepository.getById(45);
+            });
+            it('return undefined', () => {
+                expect(transaction).toBe(undefined);
+            });
+        });
+    })
+
 });

@@ -24,6 +24,9 @@ class TransactionsRepository {
     getLastId() {
         return this.transactions.length;
     }
+    getById(id) {
+        return this.transactions.find(transaction => transaction.id === id)
+    }
 }
 
 module.exports = {
