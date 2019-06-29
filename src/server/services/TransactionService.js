@@ -10,11 +10,18 @@ class TransactionService {
     }
 
     static getById(id) {
-        const transaction = TransactionsRepository.getById(id)
+        const transaction = TransactionsRepository.getById(id);
         if (!transaction) {
-            throw TransactionNotFoundException()
+            throw TransactionNotFoundException();
         }
-        return transaction
+        return transaction;
+    }
+
+    static getAll() {
+        return TransactionsRepository.getAll();
+    }
+    static getBalance() {
+        return TransactionsRepository.getBalance();
     }
 
 }

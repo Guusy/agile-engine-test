@@ -43,5 +43,6 @@ describe('TransactionService', () => {
                 expect(findTransaction).toThrow(TransactionNotFoundException());
             });
         });
-    })
+    });
+
 })
