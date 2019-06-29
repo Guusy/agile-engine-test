@@ -5,7 +5,7 @@ const { TransactionsRepository } = require('../repositories/TransactionsReposito
 
 
 const { CREDIT } = require('../utils/constants')
-const { InvalidAmountException, TransactionNotFoundException } = require('../errors')
+const { InvalidAmountException, TransactionNotFoundException, InvalidTransactionId } = require('../errors')
 
 describe('TransactionService', () => {
     describe('when want to add a transaction', () => {
@@ -41,6 +41,17 @@ describe('TransactionService', () => {
                     return TransactionService.getById(80);
                 }
                 expect(findTransaction).toThrow(TransactionNotFoundException());
+            });
+        });
+        describe('and the id has a invalid value ', () => {
+            beforeAll(() => {
+                TransactionsRepository.reset();
+            });
+            it('throw InvalidTransactionId', () => {
+                const findTransaction = () => {
+                    return TransactionService.getById('s,dapsmop.,aslmomi');
+                }
+                expect(findTransaction).toThrow(InvalidTransactionId());
             });
         });
     });

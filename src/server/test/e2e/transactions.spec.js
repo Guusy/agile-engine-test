@@ -3,6 +3,7 @@ const app = require('../../index');
 const { TransactionsRepository } = require('../../repositories/TransactionsRepository')
 const { Transaction } = require('../../domain/Transaction')
 const { CREDIT } = require('../../utils/constants')
+
 describe('transactions endpoints', () => {
     describe('when do a get at /transactions/:id', () => {
 
@@ -23,6 +24,13 @@ describe('transactions endpoints', () => {
                 .then((res) => {
                     expect(res.body).toEqual(transaction)
                 })
+            )
+        })
+
+        describe('and transaction id is invalid ', () => {
+            it('respond with 400 ', () => request(app)
+                .get('/api/transactions/--2,31o20')
+                .expect(400)
             )
         })
 

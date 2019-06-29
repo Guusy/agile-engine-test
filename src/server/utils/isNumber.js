@@ -1,0 +1,1 @@
+module.exports = value => !!Number.parseInt(value, 10);
