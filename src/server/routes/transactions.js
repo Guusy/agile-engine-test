@@ -11,4 +11,14 @@ router.get('/', (req, res, next) => {
     }
 });
 
+router.get('/:id', (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const transaction = TransactionService.getById(id);
+        return res.status(200).json(transaction);
+    } catch (error) {
+        return next(error);
+    }
+});
+
 module.exports = router;

@@ -1,4 +1,5 @@
+const NOT_FOUND_EXCEPTION = { status: 404 };
 module.exports = {
     InvalidAmountException: (message = '', status = '') => ({ message, status }),
-    TransactionNotFoundException: (message = '', status = '') => ({ message, status: 404 })
+    TransactionNotFoundException: (message = '') => ({ ...NOT_FOUND_EXCEPTION, message })
 }
