@@ -1,15 +1,28 @@
 class TransactionsRepository {
     constructor() {
-        this.transactions = []
+        this.transactions = [];
+        this.add = this.add.bind(this);
     }
 
     reset() {
-        this.transactions = []
-    }
-    add(transaction) {
-        this.transactions.push(transaction)
+        this.transactions = [];
     }
 
+    getAll() {
+        return this.transactions;
+    }
+
+    add(transaction) {
+        const newTransaction = {
+            ...transaction,
+            id: this.getLastId()
+        };
+        this.transactions.push(newTransaction);
+    }
+
+    getLastId() {
+        return this.transactions.length;
+    }
 }
 
 module.exports = {
