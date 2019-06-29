@@ -1,5 +1,5 @@
 const { TransactionsRepository } = require('../repositories/TransactionsRepository');
-const { InvalidAmountException } = require('../errors');
+const { InvalidAmountException, TransactionNotFoundException } = require('../errors');
 class TransactionService {
     static add(transaction) {
         const actualBalance = TransactionsRepository.getBalance();
@@ -7,6 +7,14 @@ class TransactionService {
             throw InvalidAmountException();
         }
         TransactionsRepository.add(transaction);
+    }
+
+    static getById(id) {
+        const transaction = TransactionsRepository.getById(id)
+        if (!transaction) {
+            throw TransactionNotFoundException()
+        }
+        return transaction
     }
 
 }

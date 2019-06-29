@@ -1,3 +1,4 @@
 module.exports = {
-    InvalidAmountException: (message = '') => ({ message })
+    InvalidAmountException: (message = '', status = '') => ({ message, status }),
+    TransactionNotFoundException: (message = '', status = '') => ({ message, status: 404 })
 }
