@@ -1,5 +1,6 @@
 class TransactionsRepository {
     constructor() {
+        this.balance = 0;
         this.transactions = [];
         this.add = this.add.bind(this);
     }
@@ -26,6 +27,9 @@ class TransactionsRepository {
     }
     getById(id) {
         return this.transactions.find(transaction => transaction.id === id)
+    }
+    getBalance() {
+        return this.balance
     }
 }
 

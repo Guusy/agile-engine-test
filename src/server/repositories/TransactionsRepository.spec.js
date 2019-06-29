@@ -69,4 +69,13 @@ describe('TransactionsRepository', () => {
         });
     })
 
+    describe('when ask for balance', () => {
+        beforeAll(() => {
+            TransactionsRepository.balance = 9999
+        })
+        it('responds the actual balance', () => {
+            expect(TransactionsRepository.getBalance()).toEqual(9999)
+        })
+    })
+
 });

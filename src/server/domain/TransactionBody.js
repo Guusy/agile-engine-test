@@ -3,6 +3,9 @@ class TransactionBody {
         this.type = null
         this.amount = null
     }
+    getAmount() {
+        return this.amount
+    }
     toJson() {
         return JSON.stringify({ ...this })
     }
