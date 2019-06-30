@@ -10,7 +10,6 @@ const { InvalidAmountException, TransactionNotFoundException, InvalidTransaction
 describe('TransactionService', () => {
     describe('when want to add a transaction', () => {
 
-
         describe('and this has amount is valid', () => {
             beforeAll(() => {
                 const transaction = TransactionBody.fromJson({ amount: 20, type: CREDIT });

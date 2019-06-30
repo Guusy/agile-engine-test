@@ -4,11 +4,12 @@ const isNumber = require('../utils/isNumber');
 
 class TransactionService {
     static add(transaction) {
+        transaction.validate();
         const actualBalance = TransactionsRepository.getBalance();
         if (actualBalance < transaction.getAmount()) {
             throw InvalidAmountException();
         }
-        TransactionsRepository.add(transaction);
+        return TransactionsRepository.add(transaction);
     }
 
     static getById(id) {

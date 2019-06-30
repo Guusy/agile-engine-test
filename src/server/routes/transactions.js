@@ -1,6 +1,17 @@
 const express = require('express')
 const router = express.Router();
 const { TransactionService } = require('../services/TransactionService');
+const { TransactionBody } = require('../domain/TransactionBody');
+router.post('/', (req, res, next) => {
+    const { body } = req;
+    try {
+        const newTransaction = TransactionBody.fromJson(body);
+        const transaction = TransactionService.add(newTransaction);
+        return res.status(201).json(transaction);
+    } catch (error) {
+        return next(error);
+    }
+});
 
 router.get('/', (req, res, next) => {
     try {

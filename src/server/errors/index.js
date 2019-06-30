@@ -1,7 +1,7 @@
-const NOT_FOUND_EXCEPTION = { status: 404 };
-const BAD_REQUEST = { status: 400 };
+const NOT_FOUND_EXCEPTION = { status: 404, isBusinessError: true };
+const BAD_REQUEST = { status: 400, isBusinessError: true };
 module.exports = {
-    InvalidAmountException: (message = '', status = '') => ({ message, status }),
+    InvalidAmountException: () => ({ ...BAD_REQUEST, message: 'Invalid amount', }),
     TransactionNotFoundException: () => ({ ...NOT_FOUND_EXCEPTION, message: "Transaction not found" }),
     InvalidTransactionId: () => ({ ...BAD_REQUEST, message: 'Invalid id' })
 }

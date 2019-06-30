@@ -21,9 +21,8 @@ describe('TransactionsRepository', () => {
         beforeAll(() => {
             TransactionsRepository.reset();
             TransactionsRepository.balance = 310;
-            TransactionsRepository.add(transactionValue);
+            transaction = TransactionsRepository.add(transactionValue);
             transactions = TransactionsRepository.getAll();
-            transaction = transactions[0]
         })
         it('add this to the repository', () => {
             expect(transactions.length).toBe(1);

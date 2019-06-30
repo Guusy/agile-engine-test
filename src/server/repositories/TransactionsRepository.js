@@ -22,6 +22,7 @@ class TransactionsRepository {
             effectiveDate: Date.now()
         };
         this.transactions.push(newTransaction);
+        return newTransaction;
     }
 
     getLastId() {
