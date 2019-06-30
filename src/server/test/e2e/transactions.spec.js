@@ -68,7 +68,7 @@ describe('transactions endpoints', () => {
     describe('when do a get at /transactions/:id', () => {
 
         describe('and this transaction exists', () => {
-            const transaction = Transaction.fromJson({ id: "20", amount: 40, type: CREDIT, effectiveDate: '' })
+            const transaction = Transaction.fromJson({ id: 20, amount: 40, type: CREDIT, effectiveDate: '' })
             beforeAll(() => {
                 TransactionsRepository.transactions = [transaction]
             })
@@ -92,6 +92,35 @@ describe('transactions endpoints', () => {
             it('respond with 400 ', () => request(app)
                 .get('/api/transactions/--2,31o20')
                 .expect(400)
+            )
+        })
+    })
+
+    describe('when do a get at /transactions', () => {
+        describe('and there is some transaction ', () => {
+            const transaction = Transaction.fromJson({ id: 20, amount: 40, type: CREDIT, effectiveDate: '' })
+            beforeAll(() => {
+                TransactionsRepository.reset();
+                TransactionsRepository.transactions = [transaction]
+            });
+            it('respond with 200 and all transactions', () => request(app)
+                .get('/api/transactions')
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toEqual([transaction])
+                })
+            )
+        })
+        describe('and there is no transaction ', () => {
+            beforeAll(() => {
+                TransactionsRepository.reset()
+            });
+            it('respond with 200 and empty array', () => request(app)
+                .get('/api/transactions')
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toEqual([])
+                })
             )
         })
     })

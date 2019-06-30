@@ -1,5 +1,5 @@
 const { TransactionsRepository } = require('../repositories/TransactionsRepository');
-const { InvalidAmountException, TransactionNotFoundException, InvalidTransactionId, NotEnoughBalanceException } = require('../errors');
+const { TransactionNotFoundException, InvalidTransactionId, NotEnoughBalanceException } = require('../errors');
 const isNumber = require('../utils/isNumber');
 
 class TransactionService {
@@ -16,7 +16,8 @@ class TransactionService {
         if (!isNumber(id)) {
             throw InvalidTransactionId();
         }
-        const transaction = TransactionsRepository.getById(id);
+        const realId = Number.parseInt(id, 10);
+        const transaction = TransactionsRepository.getById(realId);
         if (!transaction) {
             throw TransactionNotFoundException();
         }
