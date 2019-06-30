@@ -25,27 +25,29 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "8px"
     }
 }));
+const isCredit = (type) => type === "credit";
 const TransactionPanel = (props) => {
     const classes = useStyles();
     const { expanded, handleChange, id, amount, type, effectiveDate } = props;
     const onChange = (event, isExpanded) => {
         handleChange(id, isExpanded);
     }
+    const sign = isCredit(type) ? '+' : '-';
     return <ExpansionPanel key={id} expanded={expanded === id} onChange={onChange}>
         <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
         >
-            <Typography className={classes.heading}>{type === "credit" ? <CreditCardIcon /> : <AttachMoneyIcon />}   <span className={classes.amount} data-test="amount">{amount}</span>  </Typography>
+            <Typography className={classes.heading}>{isCredit(type) ? <CreditCardIcon /> : <AttachMoneyIcon />}   <span className={classes.amount} data-test="amount">{`${sign} ${amount}`}</span>  </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-        <Typography>
+            <Typography>
                 Id: <span className="id-detail">{id}</span>
             </Typography>
             <br />
             <Typography>
-                Amount: <span className="amount-detail">{amount}</span>
+                Amount: <span className="amount-detail">{`${sign} ${amount}`}</span>
             </Typography>
             <br />
 
@@ -56,7 +58,7 @@ const TransactionPanel = (props) => {
             <Typography>
                 Effective date: <span className="effective-date">{effectiveDate}</span>
             </Typography>
- 
+
         </ExpansionPanelDetails>
     </ExpansionPanel>
 }

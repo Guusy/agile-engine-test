@@ -29,30 +29,31 @@ describe('<TransactionPanel />', () => {
         const { wrapper } = setup();
         expect(wrapper.exists()).toBe(true);
     });
-    describe('basic render', () => {
-        const { amount } = setup({ amount: 20, type: "credit" });
-
-        it('render amount', () => {
-            expect(amount.text()).toEqual("20")
-        })
-    })
+  
     describe('when the type is credit ', () => {
-        const { CreditCardIcon } = setup({ amount: 20, type: "credit" });
+        const { CreditCardIcon, amount } = setup({ amount: 20, type: "credit" });
         it('render a credit card icon', () => {
             expect(CreditCardIcon).toHaveLength(1)
         })
+        it('render + amount', () => {
+            expect(amount.text()).toEqual("+ 20")
+        })
     })
     describe('when the type is debit ', () => {
-        const { DebitIcon } = setup({ amount: 20, type: "debit" });
+        const { DebitIcon, amount } = setup({ amount: 20, type: "debit" });
         it('render a debit icon', () => {
             expect(DebitIcon).toHaveLength(1)
+        })
+        it('render - amount', () => {
+            expect(amount.text()).toEqual("- 20")
         })
     })
 
     describe('when expandend is equal to id', () => {
         const effectiveDateValue = "23:20:20"
         const typeValue = "credit"
-        const { wrapper, typeDetail, effectiveDate,idDetail,amountDetail } = setup({ id: 1, expanded: 1, amount:20,effectiveDate: effectiveDateValue, type: typeValue })
+        const basicProps = { id: 1, expanded: 1, amount:20,effectiveDate: effectiveDateValue, type: typeValue}
+        const { wrapper, typeDetail, effectiveDate,idDetail,amountDetail } = setup(basicProps)
         it('ExpansionPanel is open', () => {
             expect(wrapper.props().expanded).toBe(true)
         })
@@ -62,12 +63,24 @@ describe('<TransactionPanel />', () => {
         it('render effectiveDate', () => {
             expect(effectiveDate.text()).toEqual(effectiveDateValue)
         });
-        it('render amount detail', () => {
-            expect(amountDetail.text()).toEqual("20")
-        });
+        
         it('render id', () => {
             expect(idDetail.text()).toEqual("1")
         });
+        describe('and type is debit',()=>{
+            const { amountDetail: amountDetailDebit } = setup({ ...basicProps, type: "debit" })
+            it('render amount detail with -', () => {
+                expect(amountDetailDebit.text()).toEqual("- 20")
+            });
+        })
+        describe('and type is credit',()=>{
+            const { amountDetail: amountDetailCredit } = setup({ ...basicProps, type: "credit" })
+            it('render amount detail with +', () => {
+                expect(amountDetailCredit.text()).toEqual("+ 20")
+            });
+        })
+       
+        
 
 
     })
