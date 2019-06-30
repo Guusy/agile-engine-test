@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["jest"],
+  "plugins": ["jest","react"],
   "extends": ["airbnb-base"],
   "env": {
     "browser": true,
@@ -10,6 +10,8 @@
   "rules": {
     "no-console": "off",
     "comma-dangle": "off",
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "max-len": ["warn", 180]
+
   }
 }

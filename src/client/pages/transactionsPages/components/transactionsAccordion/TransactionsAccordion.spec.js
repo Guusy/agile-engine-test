@@ -38,13 +38,12 @@ describe('<Component />', () => {
     it('render this TransactionPanel', () => {
       expect(TransactionPanel).toHaveLength(2);
     });
-
   });
   describe('when pass empty transactions', () => {
-    const { emptyMessage } = setup({ transactions: [] })
+    const { emptyMessage } = setup({ transactions: [] });
 
     it('render empty message with the label "Sorry, there is no transaction yet"', () => {
-      expect(emptyMessage.text()).toEqual("Sorry, there is no transaction yet")
+      expect(emptyMessage.text()).toEqual('Sorry, there is no transaction yet');
     });
   });
 });

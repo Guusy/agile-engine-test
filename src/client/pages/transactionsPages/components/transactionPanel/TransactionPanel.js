@@ -10,30 +10,32 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 const useStyles = makeStyles(theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-        flexShrink: 0,
-        display: "flex",
-        alignItems: "center"
-    },
-    details: {
-        display: 'inherit',
-        textAlign: "start"
-    },
-    amount: {
-        marginLeft: "8px"
-    }
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+    display: 'flex',
+    alignItems: 'center'
+  },
+  details: {
+    display: 'inherit',
+    textAlign: 'start'
+  },
+  amount: {
+    marginLeft: '8px'
+  }
 }));
-const isCredit = (type) => type === "credit";
+const isCredit = type => type === 'credit';
 const TransactionPanel = (props) => {
-    const classes = useStyles();
-    const { expanded, handleChange, id, amount, type, effectiveDate } = props;
-    const onChange = (event, isExpanded) => {
-        handleChange(id, isExpanded);
-    }
-    const sign = isCredit(type) ? '+' : '-';
-    return <ExpansionPanel key={id} expanded={expanded === id} onChange={onChange}>
+  const classes = useStyles();
+  const {
+    expanded, handleChange, id, amount, type, effectiveDate
+  } = props;
+  const onChange = (event, isExpanded) => {
+    handleChange(id, isExpanded);
+  };
+  const sign = isCredit(type) ? '+' : '-';
+  return <ExpansionPanel key={id} expanded={expanded === id} onChange={onChange}>
         <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
@@ -60,7 +62,7 @@ const TransactionPanel = (props) => {
             </Typography>
 
         </ExpansionPanelDetails>
-    </ExpansionPanel>
-}
+    </ExpansionPanel>;
+};
 
-export default TransactionPanel
+export default TransactionPanel;
