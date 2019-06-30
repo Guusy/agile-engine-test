@@ -10,11 +10,17 @@ Used boilerplate : [simple-react-full-stack](https://github.com/crsandeep/simple
 npm run dev
 ```
 
+Port: 3000
+
 ## How to run test
 
 ```
 npm run test
 ```
+
+## Client urls
+
+`Transactions page -> / `
 
 ## Server urls
 
