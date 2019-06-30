@@ -15,14 +15,17 @@ class TransactionsRepository {
     }
 
     add(transaction) {
-        this.subtractBalance(transaction.amount)
-        const newTransaction = {
-            ...transaction,
-            id: this.getLastId(),
-            effectiveDate: new Date()
-        };
-        this.transactions.push(newTransaction);
-        return newTransaction;
+        return new Promise((res) => {
+            this.subtractBalance(transaction.amount)
+            const newTransaction = {
+                ...transaction,
+                id: this.getLastId(),
+                effectiveDate: new Date()
+            };
+            this.transactions.push(newTransaction);
+            return res(newTransaction);
+        })
+
     }
 
     getLastId() {

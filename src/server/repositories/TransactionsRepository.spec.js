@@ -7,8 +7,8 @@ global.Date = jest.fn(() => mockedDate)
 
 describe('TransactionsRepository', () => {
     describe('when ask for all transactions', () => {
-        it('response with this transactions', () => {
-            const allTransactions = TransactionsRepository.getAll();
+        it('response with this transactions', async () => {
+            const allTransactions = await TransactionsRepository.getAll();
             expect(allTransactions).toEqual([])
         })
     })
@@ -19,11 +19,11 @@ describe('TransactionsRepository', () => {
         })
         let transactions = [];
         let transaction = {};
-        beforeAll(() => {
+        beforeAll(async () => {
             TransactionsRepository.reset();
             TransactionsRepository.balance = 310;
-            transaction = TransactionsRepository.add(transactionValue);
-            transactions = TransactionsRepository.getAll();
+            transaction = await TransactionsRepository.add(transactionValue);
+            transactions = await TransactionsRepository.getAll();
         })
         it('add this to the repository', () => {
             expect(transactions.length).toBe(1);
@@ -52,10 +52,10 @@ describe('TransactionsRepository', () => {
                 type: CREDIT
             })
             let transaction = {}
-            beforeAll(() => {
+            beforeAll(async () => {
                 TransactionsRepository.reset();
-                TransactionsRepository.add(transactionValue);
-                transaction = TransactionsRepository.getById(0)
+                await TransactionsRepository.add(transactionValue);
+                transaction = await TransactionsRepository.getById(0)
             });
             it('return this transaction', () => {
                 expect(transaction.id).toBe(0)
@@ -63,9 +63,9 @@ describe('TransactionsRepository', () => {
         });
         describe('and this id doesnt exists', () => {
             let transaction;
-            beforeAll(() => {
+            beforeAll(async () => {
                 TransactionsRepository.reset();
-                transaction = TransactionsRepository.getById(45);
+                transaction = await TransactionsRepository.getById(45);
             });
             it('return undefined', () => {
                 expect(transaction).toBe(undefined);
