@@ -1,6 +1,6 @@
 class TransactionsRepository {
     constructor() {
-        this.balance = 0;
+        this.balance = 10000;
         this.transactions = [];
         this.add = this.add.bind(this);
     }
@@ -19,7 +19,7 @@ class TransactionsRepository {
         const newTransaction = {
             ...transaction,
             id: this.getLastId(),
-            effectiveDate: Date.now()
+            effectiveDate: new Date()
         };
         this.transactions.push(newTransaction);
         return newTransaction;

@@ -1,6 +1,7 @@
+import Restclient from "./Restclient";
 
-export default class TransactionsService {
+export default class TransactionsService extends Restclient {
     static getAll() {
-        return [{ id: 1 }, { id: 2 }]
+        return this.get('/transactions')
     }
 }

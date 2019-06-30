@@ -14,11 +14,16 @@ const useStyles = makeStyles(theme => ({
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
         flexShrink: 0,
+        display: "flex",
+        alignItems: "center"
     },
-    secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
+    details: {
+        display: 'inherit',
+        textAlign: "start"
     },
+    amount: {
+        marginLeft: "8px"
+    }
 }));
 const TransactionPanel = (props) => {
     const classes = useStyles();
@@ -32,16 +37,26 @@ const TransactionPanel = (props) => {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
         >
-            <Typography className={classes.heading} data-test="amount">${amount}</Typography>
-            <Typography className={classes.secondaryHeading} >{type === "credit" ? <CreditCardIcon /> : <AttachMoneyIcon />}</Typography>
+            <Typography className={classes.heading}>{type === "credit" ? <CreditCardIcon /> : <AttachMoneyIcon />}   <span className={classes.amount} data-test="amount">{amount}</span>  </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        <ExpansionPanelDetails className={classes.details}>
+        <Typography>
+                Id: <span className="id-detail">{id}</span>
+            </Typography>
+            <br />
+            <Typography>
+                Amount: <span className="amount-detail">{amount}</span>
+            </Typography>
+            <br />
+
             <Typography>
                 Type: <span className="type-detail">{type}</span>
             </Typography>
+            <br />
             <Typography>
                 Effective date: <span className="effective-date">{effectiveDate}</span>
             </Typography>
+ 
         </ExpansionPanelDetails>
     </ExpansionPanel>
 }

@@ -1,6 +1,7 @@
 const { TransactionsRepository } = require('../repositories/TransactionsRepository');
 const { TransactionNotFoundException, InvalidTransactionId, NotEnoughBalanceException } = require('../errors');
 const isNumber = require('../utils/isNumber');
+const { Transaction } = require('../domain/Transaction');
 
 class TransactionService {
     static add(transaction) {
@@ -9,7 +10,8 @@ class TransactionService {
         if (actualBalance < transaction.getAmount()) {
             throw NotEnoughBalanceException();
         }
-        return TransactionsRepository.add(transaction);
+        const effectiveTransaction = TransactionsRepository.add(transaction);
+        return Transaction.fromJson(effectiveTransaction);
     }
 
     static getById(id) {
@@ -21,11 +23,11 @@ class TransactionService {
         if (!transaction) {
             throw TransactionNotFoundException();
         }
-        return transaction;
+        return Transaction.fromJson(transaction);
     }
 
     static getAll() {
-        return TransactionsRepository.getAll();
+        return TransactionsRepository.getAll().map(transaction => Transaction.fromJson(transaction))
     }
 
     static getBalance() {

@@ -19,6 +19,8 @@ const setup = (anotherProps = {}) => {
         CreditCardIcon: wrapper.find('CreditCardIcon'),
         DebitIcon: wrapper.find('AttachMoneyIcon'),
         typeDetail: wrapper.find('.type-detail'),
+        amountDetail: wrapper.find('.amount-detail'),
+        idDetail: wrapper.find('.id-detail'),
     };
 };
 
@@ -31,7 +33,7 @@ describe('<TransactionPanel />', () => {
         const { amount } = setup({ amount: 20, type: "credit" });
 
         it('render amount', () => {
-            expect(amount.text()).toEqual("$20")
+            expect(amount.text()).toEqual("20")
         })
     })
     describe('when the type is credit ', () => {
@@ -50,7 +52,7 @@ describe('<TransactionPanel />', () => {
     describe('when expandend is equal to id', () => {
         const effectiveDateValue = "23:20:20"
         const typeValue = "credit"
-        const { wrapper, typeDetail, effectiveDate } = setup({ id: 1, expanded: 1, effectiveDate: effectiveDateValue, type: typeValue })
+        const { wrapper, typeDetail, effectiveDate,idDetail,amountDetail } = setup({ id: 1, expanded: 1, amount:20,effectiveDate: effectiveDateValue, type: typeValue })
         it('ExpansionPanel is open', () => {
             expect(wrapper.props().expanded).toBe(true)
         })
@@ -60,6 +62,13 @@ describe('<TransactionPanel />', () => {
         it('render effectiveDate', () => {
             expect(effectiveDate.text()).toEqual(effectiveDateValue)
         });
+        it('render amount detail', () => {
+            expect(amountDetail.text()).toEqual("20")
+        });
+        it('render id', () => {
+            expect(idDetail.text()).toEqual("1")
+        });
+
 
     })
     describe('when expandend is not equal to id', () => {

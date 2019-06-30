@@ -10,7 +10,7 @@ jest.mock('../../services/TransactionsService', () => (
         }
     }
 ))
-const props = {  };
+const props = {};
 const setup = (anotherProps = {}) => {
     const newProps = {
         ...props,
@@ -38,5 +38,6 @@ describe('<TransactionsPage />', () => {
         const TransactionsAccordionMounted = wrapper.find('TransactionsAccordion');
         expect(TransactionsAccordionMounted.props().transactions).toEqual([1, 2, 3, 4]);
         done();
-    })
+    });
+
 });

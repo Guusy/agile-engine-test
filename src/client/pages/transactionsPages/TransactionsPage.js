@@ -8,7 +8,10 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles(() => ({
     root: {
         height: '100vh',
-        padding: "2em"
+        padding: "2em",
+        display: "flex",
+        justifyContent: "center"
+
     },
 }));
 const TransactionsPage = () => {

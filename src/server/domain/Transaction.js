@@ -6,7 +6,12 @@ class Transaction {
         this.effectiveDate = null
     }
     toJson() {
-        return JSON.stringify({ ...this })
+        return {
+            id: this.id,
+            type: this.type,
+            amount: this.amount,
+            effectiveDate: this.effectiveDate,
+        }
     }
 
     static fromJson(json) {
@@ -15,7 +20,7 @@ class Transaction {
         transaction.type = json.type;
         transaction.amount = json.amount;
         transaction.effectiveDate = json.effectiveDate;
-        return transaction
+        return transaction;
     }
 
 }
