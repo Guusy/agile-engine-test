@@ -1,6 +1,7 @@
 const isNumber = require('../utils/isNumber');
 const { InvalidAmountException, InvalidTypeException } = require('../errors');
 const { CREDIT, DEBIT } = require('../utils/constants');
+const TransactionsTypes = require('./TransactionsTypes');
 class TransactionBody {
     constructor() {
         this.availableTypes = [CREDIT, DEBIT]
@@ -9,7 +10,7 @@ class TransactionBody {
         this.validate = this.validate.bind(this);
     }
     getAmount() {
-        return this.amount
+        return TransactionsTypes[this.type].getRealAmount(this.amount)
     }
     toJson() {
         return JSON.stringify({ ...this })

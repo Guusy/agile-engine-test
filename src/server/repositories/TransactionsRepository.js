@@ -16,7 +16,7 @@ class TransactionsRepository {
 
     add(transaction) {
         return new Promise((res) => {
-            this.subtractBalance(transaction.amount)
+            this.modifyBalanceWith(transaction.getAmount())
             const newTransaction = {
                 ...transaction,
                 id: this.getLastId(),
@@ -37,8 +37,8 @@ class TransactionsRepository {
     getBalance() {
         return this.balance
     }
-    subtractBalance(amount) {
-        this.balance = this.balance - amount
+    modifyBalanceWith(amount) {
+        this.balance = this.balance + amount
     }
 }
 

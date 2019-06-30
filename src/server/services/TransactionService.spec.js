@@ -17,9 +17,9 @@ describe('TransactionService', () => {
                 TransactionsRepository.balance = 100;
                 TransactionService.add(transaction);
             })
-            it('subtract this amount of balance ', () => {
+            it('add this amount of balance ', () => {
                 const balance = TransactionService.getBalance();
-                expect(balance).toEqual(80)
+                expect(balance).toEqual(120)
             });
             it('add a transaction', async () => {
                 const transactions = await TransactionsRepository.getAll();
@@ -102,7 +102,7 @@ describe('TransactionService', () => {
                 const copyFunction = TransactionsRepository.add
                 TransactionsRepository.add = (transaction) => new Promise((res) => {
                     setTimeout(() => {
-                        const thisTransaction = copyFunction({ ...transaction })
+                        const thisTransaction = copyFunction(transaction)
                         res(thisTransaction);
                     }, 500)
                 })
@@ -136,7 +136,7 @@ describe('TransactionService', () => {
                 const copyFunction = TransactionsRepository.add
                 TransactionsRepository.add = (transaction) => new Promise((res) => {
                     setTimeout(() => {
-                        const thisTransaction = copyFunction({ ...transaction })
+                        const thisTransaction = copyFunction(transaction)
                         res(thisTransaction);
                     }, 200)
                 })
@@ -164,7 +164,7 @@ describe('TransactionService', () => {
                 const copyFunction = TransactionsRepository.add
                 TransactionsRepository.add = (transaction) => new Promise((res) => {
                     setTimeout(() => {
-                        const thisTransaction = copyFunction({ ...transaction })
+                        const thisTransaction = copyFunction(transaction)
                         res(thisTransaction);
                     }, 200)
                 })

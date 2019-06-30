@@ -1,6 +1,6 @@
 const { TransactionsRepository } = require('./TransactionsRepository')
 const { TransactionBody } = require('../domain/TransactionBody')
-const { CREDIT } = require('../utils/constants')
+const { CREDIT, DEBIT } = require('../utils/constants')
 
 const mockedDate = new Date(2017, 11, 10)
 global.Date = jest.fn(() => mockedDate)
@@ -12,10 +12,43 @@ describe('TransactionsRepository', () => {
             expect(allTransactions).toEqual([])
         })
     })
-    describe('when add a new transaction', () => {
+
+    describe('when add a new CREDIT transaction', () => {
         const transactionValue = TransactionBody.fromJson({
             amount: 10,
             type: CREDIT
+        })
+        let transactions = [];
+        let transaction = {};
+        beforeAll(async () => {
+            TransactionsRepository.reset();
+            TransactionsRepository.balance = 310;
+            transaction = await TransactionsRepository.add(transactionValue);
+            transactions = await TransactionsRepository.getAll();
+        })
+        it('add this to the repository', () => {
+            expect(transactions.length).toBe(1);
+        });
+        it('add this with id', () => {
+            expect(transaction.id).toBe(0);
+        });
+        it('add this with effectiveDate', () => {
+            expect(transaction.effectiveDate).toEqual(mockedDate);
+        });
+        it('add this with his amount', () => {
+            expect(transaction.amount).toEqual(transactionValue.amount);
+        });
+        it('add this with his type', () => {
+            expect(transaction.type).toEqual(transactionValue.type);
+        });
+        it('add balance', () => {
+            expect(TransactionsRepository.getBalance()).toEqual(320)
+        })
+    })
+    describe('when add a new DEBIT transaction', () => {
+        const transactionValue = TransactionBody.fromJson({
+            amount: 10,
+            type: DEBIT
         })
         let transactions = [];
         let transaction = {};
