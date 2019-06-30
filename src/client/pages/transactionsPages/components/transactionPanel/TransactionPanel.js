@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CreditCard from '@material-ui/icons/CreditCard';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -20,15 +22,18 @@ const useStyles = makeStyles(theme => ({
 }));
 const TransactionPanel = (props) => {
     const classes = useStyles();
-    const { expanded, handleChange } = props;
-    return <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+    const { expanded, handleChange, id, amount, type } = props;
+    const onChange = (event, isExpanded) => {
+        handleChange(id, isExpanded);
+    }
+    return <ExpansionPanel expanded={expanded === id} onChange={onChange}>
         <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
         >
-            <Typography className={classes.heading}>General settings</Typography>
-            <Typography className={classes.secondaryHeading}>I am an expansion panel</Typography>
+            <Typography className={classes.heading} data-test="amount">{amount}</Typography>
+            <Typography className={classes.secondaryHeading} data-test="type">{type}<CreditCard /></Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
             <Typography>

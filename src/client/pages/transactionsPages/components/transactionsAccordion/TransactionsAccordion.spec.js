@@ -45,6 +45,6 @@ describe('<Component />', () => {
 
     it('render empty message with the label "Sorry, there is no transaction yet"', () => {
       expect(emptyMessage.text()).toEqual("Sorry, there is no transaction yet")
-    })
-  })
+    });
+  });
 });

@@ -1,6 +1,6 @@
 
 export default class TransactionsService {
     static getAll() {
-        return []
+        return [{ id: 1 }, { id: 2 }]
     }
 }
