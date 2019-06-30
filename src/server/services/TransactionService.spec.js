@@ -5,7 +5,7 @@ const { TransactionsRepository } = require('../repositories/TransactionsReposito
 
 
 const { CREDIT } = require('../utils/constants')
-const { InvalidAmountException, TransactionNotFoundException, InvalidTransactionId } = require('../errors')
+const { InvalidAmountException, TransactionNotFoundException, InvalidTransactionId, InvalidTypeException } = require('../errors')
 
 describe('TransactionService', () => {
     describe('when want to add a transaction', () => {
@@ -29,6 +29,18 @@ describe('TransactionService', () => {
             })
         })
 
+        describe('and has a invalid type', () => {
+            const transaction = TransactionBody.fromJson({ amount: 20, type: "12312312" });
+            beforeAll(() => {
+                TransactionsRepository.balance = 100;
+            })
+            it('throws InvalidTypeException', () => {
+                const addTransaction = () => {
+                    return TransactionService.add(transaction)
+                }
+                expect(addTransaction).toThrow(InvalidTypeException());
+            });
+        })
 
         describe('and this has amount that makes the balance remain negative', () => {
             const transaction = TransactionBody.fromJson({ amount: 999999, type: CREDIT });

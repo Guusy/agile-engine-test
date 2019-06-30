@@ -6,33 +6,47 @@ const { CREDIT } = require('../../utils/constants')
 
 describe('transactions endpoints', () => {
     describe('when do a post at /transactions', () => {
-        describe('and has a invalid amount', () => {
-            it('response with 400 and message "invalid amount"', () => {
-                return request(app)
-                    .post('/api/transactions')
-                    .send({ amount: "213u123", type: CREDIT })
-                    .expect(400)
-                    .then((res) => {
-                        expect(res.body.message).toEqual("Invalid amount")
-                    })
-            })
-        })
-        describe('and has a amount and type', () => {
+        describe('and has enough balance', () => {
             beforeAll(() => {
                 TransactionsRepository.reset();
                 TransactionsRepository.balance = 100;
             })
-            it('response with 200 and the transaction ', () => {
-                return request(app)
-                    .post('/api/transactions')
-                    .send({ amount: 20, type: CREDIT })
-                    .expect(201)
-                    .then((res) => {
-                        expect(res.body.amount).toEqual(20);
-                        expect(res.body.type).toEqual(CREDIT);
-                    })
+            describe('and has a invalid amount', () => {
+                it('response with 400 and message "invalid amount"', () => {
+                    return request(app)
+                        .post('/api/transactions')
+                        .send({ amount: "213u123", type: CREDIT })
+                        .expect(400)
+                        .then((res) => {
+                            expect(res.body.message).toEqual("Invalid amount")
+                        })
+                })
+            })
+            describe('and has a invalid TYPE', () => {
+                it('response with 400 and message "invalid type"', () => {
+                    return request(app)
+                        .post('/api/transactions')
+                        .send({ amount: 20, type: "another type" })
+                        .expect(400)
+                        .then((res) => {
+                            expect(res.body.message).toEqual("Invalid type")
+                        })
+                })
+            })
+            describe('and has a valid amount and type', () => {
+                it('response with 201 and the transaction ', () => {
+                    return request(app)
+                        .post('/api/transactions')
+                        .send({ amount: 20, type: CREDIT })
+                        .expect(201)
+                        .then((res) => {
+                            expect(res.body.amount).toEqual(20);
+                            expect(res.body.type).toEqual(CREDIT);
+                        })
+                })
             })
         })
+
     });
 
     describe('when do a get at /transactions/:id', () => {

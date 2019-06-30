@@ -1,7 +1,9 @@
 const isNumber = require('../utils/isNumber');
-const { InvalidAmountException } = require('../errors');
+const { InvalidAmountException, InvalidTypeException } = require('../errors');
+const { CREDIT, DEBIT } = require('../utils/constants');
 class TransactionBody {
     constructor() {
+        this.availableTypes = [CREDIT, DEBIT]
         this.type = null
         this.amount = null
         this.validate = this.validate.bind(this);
@@ -21,6 +23,9 @@ class TransactionBody {
     }
 
     validate() {
+        if (!this.availableTypes.includes(this.type)) {
+            throw InvalidTypeException();
+        }
         if (!isNumber(this.amount)) {
             throw InvalidAmountException();
         }
