@@ -22,22 +22,26 @@ const setup = (anotherProps = {}) => {
         wrapper,
         instance: wrapper.instance(),
         TransactionsAccordion: wrapper.find('TransactionsAccordion'),
+        CircularProgress: wrapper.find('CircularProgress'),
     };
 };
 
 describe('<TransactionsPage />', () => {
-    const { wrapper, TransactionsAccordion } = setup();
+    const { wrapper, CircularProgress } = setup();
     it('smoke test', () => {
         expect(wrapper.exists()).toBe(true);
     });
-    it('render a TransactionsAccordion', () => {
-        expect(TransactionsAccordion).toHaveLength(1);
-    });
-    it('pass all the transactions to the TransactionsAccordion', (done) => {
-        wrapper.update();
-        const TransactionsAccordionMounted = wrapper.find('TransactionsAccordion');
-        expect(TransactionsAccordionMounted.props().transactions).toEqual([1, 2, 3, 4]);
-        done();
-    });
+
+    describe('when the api call finish', () => {
+        beforeAll(()=>{
+            wrapper.update();
+        })
+        it('pass all the transactions to the TransactionsAccordion', (done) => {
+            const TransactionsAccordionMounted = wrapper.find('TransactionsAccordion');
+            expect(TransactionsAccordionMounted.props().transactions).toEqual([1, 2, 3, 4]);
+            done();
+        });
+    })
+
 
 });

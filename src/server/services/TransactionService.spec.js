@@ -39,6 +39,7 @@ describe('TransactionService', () => {
                     return TransactionService.add(transaction)
                 }
                 expect(addTransaction()).rejects.toEqual(InvalidTypeException())
+                expect(TransactionsRepository.balance).toEqual(100)
 
             });
         })
@@ -53,6 +54,7 @@ describe('TransactionService', () => {
                     return await TransactionService.add(transaction)
                 }
                 expect(addTransaction()).rejects.toEqual(NotEnoughBalanceException())
+                expect(TransactionsRepository.balance).toEqual(100)
             });
         })
     });
