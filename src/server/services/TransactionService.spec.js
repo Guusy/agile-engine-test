@@ -5,7 +5,7 @@ const { TransactionsRepository } = require('../repositories/TransactionsReposito
 
 
 const { CREDIT } = require('../utils/constants')
-const { InvalidAmountException, TransactionNotFoundException, InvalidTransactionId, InvalidTypeException } = require('../errors')
+const { NotEnoughBalanceException, TransactionNotFoundException, InvalidTransactionId, InvalidTypeException } = require('../errors')
 
 describe('TransactionService', () => {
     describe('when want to add a transaction', () => {
@@ -47,11 +47,11 @@ describe('TransactionService', () => {
             beforeAll(() => {
                 TransactionsRepository.balance = 100;
             })
-            it('throws InvalidAmountException', () => {
+            it('throws NoEnoughBalanceException', () => {
                 const addTransaction = () => {
                     return TransactionService.add(transaction)
                 }
-                expect(addTransaction).toThrow(InvalidAmountException());
+                expect(addTransaction).toThrow(NotEnoughBalanceException());
             });
         })
     });
