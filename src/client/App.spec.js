@@ -13,12 +13,17 @@ const setup = (anotherProps = {}) => {
   return {
     wrapper,
     instance: wrapper.instance(),
+    TransactionsPage: wrapper.find('TransactionsPage'),
   };
 };
 
 describe('<App />', () => {
+  const { wrapper, TransactionsPage } = setup();
+
   it('smoke test', () => {
-    const { wrapper } = setup();
     expect(wrapper.exists()).toBe(true);
+  });
+  it('renders TransactionsPage', () => {
+    expect(TransactionsPage).toHaveLength(1);
   });
 });
