@@ -10,7 +10,7 @@ jest.mock('../../services/TransactionsService', () => (
         }
     }
 ))
-const props = {};
+const props = {  };
 const setup = (anotherProps = {}) => {
     const newProps = {
         ...props,
@@ -27,13 +27,6 @@ const setup = (anotherProps = {}) => {
 
 describe('<TransactionsPage />', () => {
     const { wrapper, TransactionsAccordion } = setup();
-    beforeAll(() => {
-        const mockStaticF = jest.fn();
-        mockStaticF.mockReturnValue('worked');
-
-        TransactionService.getAll = mockStaticF.bind(TransactionService);
-
-    })
     it('smoke test', () => {
         expect(wrapper.exists()).toBe(true);
     });
