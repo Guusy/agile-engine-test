@@ -31,7 +31,7 @@ const TransactionPanel = (props) => {
     const onChange = (event, isExpanded) => {
         handleChange(id, isExpanded);
     }
-    return <ExpansionPanel expanded={expanded === id} onChange={onChange}>
+    return <ExpansionPanel key={id} expanded={expanded === id} onChange={onChange}>
         <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
