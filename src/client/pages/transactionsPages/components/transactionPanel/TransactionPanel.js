@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CreditCard from '@material-ui/icons/CreditCard';
-import AttachMoney from '@material-ui/icons/AttachMoney';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const TransactionPanel = (props) => {
     const classes = useStyles();
-    const { expanded, handleChange, id, amount, type } = props;
+    const { expanded, handleChange, id, amount, type, effectiveDate } = props;
     const onChange = (event, isExpanded) => {
         handleChange(id, isExpanded);
     }
@@ -32,14 +32,16 @@ const TransactionPanel = (props) => {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
         >
-            <Typography className={classes.heading} data-test="amount">{amount}</Typography>
-            <Typography className={classes.secondaryHeading} data-test="type">{type}<CreditCard /></Typography>
+            <Typography className={classes.heading} data-test="amount">${amount}</Typography>
+            <Typography className={classes.secondaryHeading} >{type === "credit" ? <CreditCardIcon /> : <AttachMoneyIcon />}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
             <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                maximus est, id dignissim quam.
-      </Typography>
+                Type: <span className="type-detail">{type}</span>
+            </Typography>
+            <Typography>
+                Effective date: <span className="effective-date">{effectiveDate}</span>
+            </Typography>
         </ExpansionPanelDetails>
     </ExpansionPanel>
 }
