@@ -48,7 +48,7 @@ describe('TransactionService', () => {
         TransactionsRepository.balance = 100;
       });
       it('throws NoEnoughBalanceException', async () => {
-        const addTransaction = async () => await TransactionService.add(transaction);
+        const addTransaction = async () => TransactionService.add(transaction);
         expect(addTransaction()).rejects.toEqual(NotEnoughBalanceException());
         expect(TransactionsRepository.balance).toEqual(100);
       });
@@ -71,7 +71,7 @@ describe('TransactionService', () => {
         TransactionsRepository.reset();
       });
       it('throw TransactionNotFoundException', () => {
-        const findTransaction = async () => await TransactionService.getById(80);
+        const findTransaction = async () => TransactionService.getById(80);
         expect(findTransaction()).rejects.toEqual(TransactionNotFoundException());
       });
     });
@@ -80,7 +80,7 @@ describe('TransactionService', () => {
         TransactionsRepository.reset();
       });
       it('throw InvalidTransactionId', () => {
-        const findTransaction = async () => await TransactionService.getById('s,dapsmop.,aslmomi');
+        const findTransaction = async () => TransactionService.getById('s,dapsmop.,aslmomi');
         expect(findTransaction()).rejects.toEqual(InvalidTransactionId());
       });
     });
