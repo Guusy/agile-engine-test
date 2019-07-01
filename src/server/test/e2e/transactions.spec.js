@@ -46,10 +46,10 @@ describe('transactions endpoints', () => {
         TransactionsRepository.reset();
         TransactionsRepository.balance = 0;
       });
-      it('response with 400 and message "Not enough balance to do this transaction"', () => request(app)
+      it('response with 422 and message "Not enough balance to do this transaction"', () => request(app)
         .post('/api/transactions')
         .send({ amount: 20, type: CREDIT })
-        .expect(400)
+        .expect(422)
         .then((res) => {
           expect(res.body.message).toEqual('Not enough balance to do this transaction');
         }));
